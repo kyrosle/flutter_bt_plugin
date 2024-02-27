@@ -1,4 +1,4 @@
-rust/target/
+rust/target
 # Miscellaneous
 *.class
 *.log
