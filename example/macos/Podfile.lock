@@ -1,0 +1,21 @@
+PODS:
+  - flutter_bt_plugin (0.0.1)
+  - FlutterMacOS (1.0.0)
+
+DEPENDENCIES:
+  - flutter_bt_plugin (from `Flutter/ephemeral/.symlinks/plugins/flutter_bt_plugin/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+
+EXTERNAL SOURCES:
+  flutter_bt_plugin:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_bt_plugin/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+
+SPEC CHECKSUMS:
+  flutter_bt_plugin: 94d5ea1376ec4d7b7d4252c2cdd4e41a73268b5c
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+
+PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367
+
+COCOAPODS: 1.11.3
