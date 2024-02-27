@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
 
 SPEC CHECKSUMS:
-  flutter_bt_plugin: 94d5ea1376ec4d7b7d4252c2cdd4e41a73268b5c
+  flutter_bt_plugin: e873c2970cfb5f3ed7af23fe1a17361aa25e4ee4
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
 
 PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367

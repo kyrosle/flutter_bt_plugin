@@ -1,5 +1,5 @@
 [package]
-name = "flutter_bt_rust_plugin"
+name = "flutter_bt_plugin"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,3 +8,4 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
+flutter_rust_bridge = "=2.0.0-dev.25"

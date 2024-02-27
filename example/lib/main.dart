@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter_bt_plugin/flutter_bt_plugin.dart' as flutter_bt_plugin;
+import 'package:flutter_bt_plugin/flutter_bt_plugin.dart';
 
-void main() {
+void main() async {
+  await RustLib.init();
   runApp(const MyApp());
 }
 
@@ -21,8 +22,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    sumResult = flutter_bt_plugin.sum(1, 2);
-    sumAsyncResult = flutter_bt_plugin.sumAsync(3, 4);
+    sumResult = sum(a: 1, b: 2);
+    sumAsyncResult = sumLongRunning(a: 3, b: 4);
   }
 
   @override
