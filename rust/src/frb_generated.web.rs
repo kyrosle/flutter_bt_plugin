@@ -4,6 +4,7 @@
 // Section: imports
 
 use super::*;
+use crate::api::bt_api::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::transform_result_dco;
 use flutter_rust_bridge::for_generated::wasm_bindgen;
@@ -13,3 +14,675 @@ use flutter_rust_bridge::{Handler, IntoIntoDart};
 // Section: boilerplate
 
 flutter_rust_bridge::frb_generated_boilerplate_web!();
+
+// Section: dart2rust
+
+impl CstDecode<flutter_rust_bridge::for_generated::anyhow::Error> for String {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> flutter_rust_bridge::for_generated::anyhow::Error {
+        unimplemented!()
+    }
+}
+impl CstDecode<chrono::Duration> for i64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> chrono::Duration {
+        chrono::Duration::milliseconds(self)
+    }
+}
+impl CstDecode<String> for String {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> String {
+        self
+    }
+}
+impl CstDecode<crate::api::bt_api::Channel>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Channel {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            2,
+            "Expected 2 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::Channel {
+            down: self_.get(0).cst_decode(),
+            up: self_.get(1).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::ChannelHistory>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::ChannelHistory {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            2,
+            "Expected 2 elements, got {}",
+            self_.length()
+        );
+        crate::libs::app::ChannelHistory {
+            down: self_.get(0).cst_decode(),
+            up: self_.get(1).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::DownloadArgs>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::DownloadArgs {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            6,
+            "Expected 6 elements, got {}",
+            self_.length()
+        );
+        crate::libs::DownloadArgs {
+            mode: self_.get(0).cst_decode(),
+            download_dir: self_.get(1).cst_decode(),
+            metainfo: self_.get(2).cst_decode(),
+            seeds: self_.get(3).cst_decode(),
+            listen: self_.get(4).cst_decode(),
+            quit_after_complete: self_.get(5).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::FileInfo>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::FileInfo {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            3,
+            "Expected 3 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::FileInfo {
+            path: self_.get(0).cst_decode(),
+            len: self_.get(1).cst_decode(),
+            torrent_offset: self_.get(2).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::FileStats>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::FileStats {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            2,
+            "Expected 2 elements, got {}",
+            self_.length()
+        );
+        crate::libs::app::FileStats {
+            info: self_.get(0).cst_decode(),
+            complete: self_.get(1).cst_decode(),
+        }
+    }
+}
+impl CstDecode<Vec<SocketAddr>> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<SocketAddr> {
+        self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap()
+            .iter()
+            .map(CstDecode::cst_decode)
+            .collect()
+    }
+}
+impl CstDecode<Vec<crate::api::bt_api::FileInfo>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::bt_api::FileInfo> {
+        self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap()
+            .iter()
+            .map(CstDecode::cst_decode)
+            .collect()
+    }
+}
+impl CstDecode<Vec<crate::libs::app::FileStats>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::libs::app::FileStats> {
+        self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap()
+            .iter()
+            .map(CstDecode::cst_decode)
+            .collect()
+    }
+}
+impl CstDecode<Vec<crate::api::bt_api::PeerSessionStats>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::bt_api::PeerSessionStats> {
+        self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap()
+            .iter()
+            .map(CstDecode::cst_decode)
+            .collect()
+    }
+}
+impl CstDecode<Vec<u64>> for Box<[u64]> {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u64> {
+        self.into_vec()
+    }
+}
+impl CstDecode<Vec<u8>> for Box<[u8]> {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u8> {
+        self.into_vec()
+    }
+}
+impl CstDecode<crate::api::bt_api::Mode>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Mode {
+        let self_ = self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Array>();
+        match self_.get(0).unchecked_into_f64() as _ {
+            0 => crate::api::bt_api::Mode::Download {
+                seeds: self_.get(1).cst_decode(),
+            },
+            1 => crate::api::bt_api::Mode::Seed,
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<Option<Vec<u64>>> for Option<Box<[u64]>> {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Option<Vec<u64>> {
+        self.map(CstDecode::cst_decode)
+    }
+}
+impl CstDecode<Option<[u8; 20]>> for Option<Box<[u8]>> {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Option<[u8; 20]> {
+        self.map(CstDecode::cst_decode)
+    }
+}
+impl CstDecode<crate::api::bt_api::PeerSessionStats>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::PeerSessionStats {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            5,
+            "Expected 5 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::PeerSessionStats {
+            addr: self_.get(0).cst_decode(),
+            id: self_.get(1).cst_decode(),
+            state: self_.get(2).cst_decode(),
+            piece_count: self_.get(3).cst_decode(),
+            thruput: self_.get(4).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::Peers>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Peers {
+        let self_ = self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Array>();
+        match self_.get(0).unchecked_into_f64() as _ {
+            0 => crate::api::bt_api::Peers::Count(self_.get(1).cst_decode()),
+            1 => crate::api::bt_api::Peers::Full(self_.get(1).cst_decode()),
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::PieceStats>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::PieceStats {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            4,
+            "Expected 4 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::PieceStats {
+            total: self_.get(0).cst_decode(),
+            pending: self_.get(1).cst_decode(),
+            complete: self_.get(2).cst_decode(),
+            latest_completed: self_.get(3).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::SessionState>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::SessionState {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            5,
+            "Expected 5 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::SessionState {
+            connection: self_.get(0).cst_decode(),
+            is_choked: self_.get(1).cst_decode(),
+            is_interested: self_.get(2).cst_decode(),
+            is_peer_choked: self_.get(3).cst_decode(),
+            is_peer_interested: self_.get(4).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::StorageInfo>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::StorageInfo {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            6,
+            "Expected 6 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::StorageInfo {
+            piece_count: self_.get(0).cst_decode(),
+            piece_len: self_.get(1).cst_decode(),
+            last_piece_len: self_.get(2).cst_decode(),
+            download_len: self_.get(3).cst_decode(),
+            download_dir: self_.get(4).cst_decode(),
+            files: self_.get(5).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::Thruput>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Thruput {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            3,
+            "Expected 3 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::Thruput {
+            total: self_.get(0).cst_decode(),
+            rate: self_.get(1).cst_decode(),
+            peak: self_.get(2).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::ThruputHistory>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::ThruputHistory {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            3,
+            "Expected 3 elements, got {}",
+            self_.length()
+        );
+        crate::libs::app::ThruputHistory {
+            peak: self_.get(0).cst_decode(),
+            total: self_.get(1).cst_decode(),
+            rates: self_.get(2).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::ThruputStats>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::ThruputStats {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            3,
+            "Expected 3 elements, got {}",
+            self_.length()
+        );
+        crate::api::bt_api::ThruputStats {
+            protocol: self_.get(0).cst_decode(),
+            payload: self_.get(1).cst_decode(),
+            waste: self_.get(2).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::Torrent>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::Torrent {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            12,
+            "Expected 12 elements, got {}",
+            self_.length()
+        );
+        crate::libs::app::Torrent {
+            name: self_.get(0).cst_decode(),
+            info_hash: self_.get(1).cst_decode(),
+            piece_len: self_.get(2).cst_decode(),
+            download_len: self_.get(3).cst_decode(),
+            storage: self_.get(4).cst_decode(),
+            run_duration: self_.get(5).cst_decode(),
+            pieces: self_.get(6).cst_decode(),
+            peers: self_.get(7).cst_decode(),
+            files: self_.get(8).cst_decode(),
+            protocol: self_.get(9).cst_decode(),
+            payload: self_.get(10).cst_decode(),
+            wasted_payload_count: self_.get(11).cst_decode(),
+        }
+    }
+}
+impl CstDecode<[u8; 20]> for Box<[u8]> {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> [u8; 20] {
+        let vec: Vec<u8> = self.cst_decode();
+        flutter_rust_bridge::for_generated::from_vec_to_array(vec)
+    }
+}
+impl CstDecode<flutter_rust_bridge::for_generated::anyhow::Error>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> flutter_rust_bridge::for_generated::anyhow::Error {
+        unimplemented!()
+    }
+}
+impl CstDecode<PathBuf> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> PathBuf {
+        CstDecode::<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>>::cst_decode(self).rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<SocketAddr> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> SocketAddr {
+        CstDecode::<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>>::cst_decode(self).rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<chrono::Duration> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> chrono::Duration {
+        CstDecode::<i64>::cst_decode(self).cst_decode()
+    }
+}
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<str>>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<str>> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<String> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> String {
+        self.as_string().expect("non-UTF-8 string, or not a string")
+    }
+}
+impl CstDecode<bool> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> bool {
+        self.is_truthy()
+    }
+}
+impl CstDecode<crate::api::bt_api::ConnectionState>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::ConnectionState {
+        (self.unchecked_into_f64() as i32).cst_decode()
+    }
+}
+impl CstDecode<i32> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> i32 {
+        self.unchecked_into_f64() as _
+    }
+}
+impl CstDecode<i64> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> i64 {
+        ::std::convert::TryInto::try_into(
+            self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::BigInt>()
+                .unwrap(),
+        )
+        .unwrap()
+    }
+}
+impl CstDecode<Vec<u64>> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u64> {
+        let buf = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::BigUint64Array>()
+            .unwrap();
+        let buf = flutter_rust_bridge::for_generated::js_sys::Uint8Array::new(&buf.buffer());
+        flutter_rust_bridge::for_generated::slice_from_byte_buffer(buf.to_vec()).into()
+    }
+}
+impl CstDecode<Vec<u8>> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u8> {
+        self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Uint8Array>()
+            .to_vec()
+            .into()
+    }
+}
+impl CstDecode<u32> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u32 {
+        self.unchecked_into_f64() as _
+    }
+}
+impl CstDecode<u64> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u64 {
+        ::std::convert::TryInto::try_into(
+            self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::BigInt>()
+                .unwrap(),
+        )
+        .unwrap()
+    }
+}
+impl CstDecode<u8> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u8 {
+        self.unchecked_into_f64() as _
+    }
+}
+impl CstDecode<[u8; 20]> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> [u8; 20] {
+        let vec: Vec<u8> = self.cst_decode();
+        flutter_rust_bridge::for_generated::from_vec_to_array(vec)
+    }
+}
+impl CstDecode<usize> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> usize {
+        self.unchecked_into_f64() as _
+    }
+}
+
+#[wasm_bindgen]
+pub fn wire_bt_close_event_listener(port_: flutter_rust_bridge::for_generated::MessagePort) {
+    wire_bt_close_event_listener_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_bt_init_app(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    download_path: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+) {
+    wire_bt_init_app_impl(port_, download_path)
+}
+
+#[wasm_bindgen]
+pub fn wire_bt_register_event_listener(port_: flutter_rust_bridge::for_generated::MessagePort) {
+    wire_bt_register_event_listener_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_bt_start_up(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    args: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+) {
+    wire_bt_start_up_impl(port_, args)
+}
+
+#[wasm_bindgen]
+pub fn wire_init_app(port_: flutter_rust_bridge::for_generated::MessagePort) {
+    wire_init_app_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_sum(a: usize, b: usize) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire_sum_impl(a, b)
+}
+
+#[wasm_bindgen]
+pub fn wire_sum_long_running(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    a: usize,
+    b: usize,
+) {
+    wire_sum_long_running_impl(port_, a, b)
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<str>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<str>>::decrement_strong_count(ptr as _);
+    }
+}

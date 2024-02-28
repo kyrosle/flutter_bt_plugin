@@ -1,4 +1,9 @@
-use std::{collections::HashMap, path::PathBuf, time::Duration};
+use std::{
+  collections::HashMap,
+  path::PathBuf,
+  sync::{Arc, RwLock},
+  time::Duration,
+};
 
 use bt_rust::{
   conf::{TorrentAlertConf, TorrentConf},
@@ -30,7 +35,6 @@ impl App {
       torrents: HashMap::new(),
     })
   }
-
   pub fn create_torrent(&mut self, args: DownloadArgs) -> Result<()> {
     // read in torrent metainfo
     let metainfo = std::fs::read(&args.metainfo)?;
@@ -188,6 +192,7 @@ impl App {
 }
 
 /// Holds state about a single torrent.
+#[derive(Debug, Clone)]
 pub struct Torrent {
   // static info
   pub name: String,
@@ -214,7 +219,7 @@ impl Torrent {
   }
 }
 
-#[derive(Default)]
+#[derive(Default, Debug, Clone)]
 pub struct ChannelHistory {
   pub down: ThruputHistory,
   pub up: ThruputHistory,
@@ -227,7 +232,7 @@ impl ChannelHistory {
   }
 }
 
-#[derive(Default)]
+#[derive(Default, Debug, Clone)]
 pub struct ThruputHistory {
   pub peak: u64,
   pub total: u64,
@@ -250,6 +255,7 @@ impl ThruputHistory {
   }
 }
 
+#[derive(Debug, Clone)]
 pub struct FileStats {
   pub info: FileInfo,
   pub complete: u64,

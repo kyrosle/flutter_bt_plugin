@@ -11,10 +11,13 @@ dependencies:
     sdk: flutter
   flutter_rust_bridge: 2.0.0-dev.25
   plugin_platform_interface: ^2.0.2
+  freezed_annotation: ^2.4.1
 
 dev_dependencies:
   ffi: ^2.1.0
   ffigen: ^9.0.1
+  freezed: ^2.4.7
+  build_runner: ^2.4.8
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0

@@ -3,10 +3,13 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/bt_api.dart';
 import 'api/simple.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.io.dart' if (dart.library.html) 'frb_generated.web.dart';
+import 'libs.dart';
+import 'libs/app.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 /// Main entrypoint of the Rust API
@@ -64,11 +67,39 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
+  Future<void> btCloseEventListener({dynamic hint});
+
+  Future<void> btInitApp({required Str downloadPath, dynamic hint});
+
+  Stream<Torrent> btRegisterEventListener({dynamic hint});
+
+  Future<void> btStartUp({required DownloadArgs args, dynamic hint});
+
   Future<void> initApp({dynamic hint});
 
   int sum({required int a, required int b, dynamic hint});
 
   Future<int> sumLongRunning({required int a, required int b, dynamic hint});
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_PathBuf;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_PathBuf;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PathBufPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_SocketAddr;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_SocketAddr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_SocketAddrPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Str;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Str;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_StrPtr;
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -80,15 +111,105 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
+  Future<void> btCloseEventListener({dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        return wire.wire_bt_close_event_listener(port_);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: null,
+      ),
+      constMeta: kBtCloseEventListenerConstMeta,
+      argValues: [],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kBtCloseEventListenerConstMeta => const TaskConstMeta(
+        debugName: "bt_close_event_listener",
+        argNames: [],
+      );
+
+  @override
+  Future<void> btInitApp({required Str downloadPath, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 =
+            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+                downloadPath);
+        return wire.wire_bt_init_app(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
+      ),
+      constMeta: kBtInitAppConstMeta,
+      argValues: [downloadPath],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kBtInitAppConstMeta => const TaskConstMeta(
+        debugName: "bt_init_app",
+        argNames: ["downloadPath"],
+      );
+
+  @override
+  Stream<Torrent> btRegisterEventListener({dynamic hint}) {
+    return handler.executeStream(StreamTask(
+      callFfi: (port_) {
+        return wire.wire_bt_register_event_listener(port_);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_torrent,
+        decodeErrorData: dco_decode_AnyhowException,
+      ),
+      constMeta: kBtRegisterEventListenerConstMeta,
+      argValues: [],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kBtRegisterEventListenerConstMeta => const TaskConstMeta(
+        debugName: "bt_register_event_listener",
+        argNames: [],
+      );
+
+  @override
+  Future<void> btStartUp({required DownloadArgs args, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_download_args(args);
+        return wire.wire_bt_start_up(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
+      ),
+      constMeta: kBtStartUpConstMeta,
+      argValues: [args],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kBtStartUpConstMeta => const TaskConstMeta(
+        debugName: "bt_start_up",
+        argNames: ["args"],
+      );
+
+  @override
   Future<void> initApp({dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 3, port: port_);
+        return wire.wire_init_app(port_);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
         decodeErrorData: null,
       ),
       constMeta: kInitAppConstMeta,
@@ -107,13 +228,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int sum({required int a, required int b, dynamic hint}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_usize(a, serializer);
-        sse_encode_usize(b, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+        var arg0 = cst_encode_usize(a);
+        var arg1 = cst_encode_usize(b);
+        return wire.wire_sum(arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_usize,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_usize,
         decodeErrorData: null,
       ),
       constMeta: kSumConstMeta,
@@ -132,14 +252,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   Future<int> sumLongRunning({required int a, required int b, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_usize(a, serializer);
-        sse_encode_usize(b, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 2, port: port_);
+        var arg0 = cst_encode_usize(a);
+        var arg1 = cst_encode_usize(b);
+        return wire.wire_sum_long_running(port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_usize,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_usize,
         decodeErrorData: null,
       ),
       constMeta: kSumLongRunningConstMeta,
@@ -154,6 +272,463 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         argNames: ["a", "b"],
       );
 
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_PathBuf => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_PathBuf => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_SocketAddr => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_SocketAddr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Str => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Str => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr;
+
+  @protected
+  AnyhowException dco_decode_AnyhowException(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return AnyhowException(raw as String);
+  }
+
+  @protected
+  PathBuf
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PathBuf.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  SocketAddr
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SocketAddr.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Str dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Str.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Duration dco_decode_Chrono_Duration(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeDuration(dco_decode_i_64(raw).toInt());
+  }
+
+  @protected
+  PathBuf
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PathBuf.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  SocketAddr
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SocketAddr.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Str dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Str.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  String dco_decode_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as String;
+  }
+
+  @protected
+  bool dco_decode_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as bool;
+  }
+
+  @protected
+  SocketAddr
+      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as SocketAddr;
+  }
+
+  @protected
+  DownloadArgs dco_decode_box_autoadd_download_args(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_download_args(raw);
+  }
+
+  @protected
+  Channel dco_decode_channel(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Channel(
+      down: dco_decode_thruput(arr[0]),
+      up: dco_decode_thruput(arr[1]),
+    );
+  }
+
+  @protected
+  ChannelHistory dco_decode_channel_history(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return ChannelHistory(
+      down: dco_decode_thruput_history(arr[0]),
+      up: dco_decode_thruput_history(arr[1]),
+    );
+  }
+
+  @protected
+  ConnectionState dco_decode_connection_state(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ConnectionState.values[raw as int];
+  }
+
+  @protected
+  DownloadArgs dco_decode_download_args(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return DownloadArgs(
+      mode: dco_decode_mode(arr[0]),
+      downloadDir:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+              arr[1]),
+      metainfo:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+              arr[2]),
+      seeds:
+          dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+              arr[3]),
+      listen:
+          dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+              arr[4]),
+      quitAfterComplete: dco_decode_bool(arr[5]),
+    );
+  }
+
+  @protected
+  FileInfo dco_decode_file_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return FileInfo(
+      path:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+              arr[0]),
+      len: dco_decode_u_64(arr[1]),
+      torrentOffset: dco_decode_u_64(arr[2]),
+    );
+  }
+
+  @protected
+  FileStats dco_decode_file_stats(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return FileStats(
+      info: dco_decode_file_info(arr[0]),
+      complete: dco_decode_u_64(arr[1]),
+    );
+  }
+
+  @protected
+  int dco_decode_i_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  int dco_decode_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeI64OrU64(raw);
+  }
+
+  @protected
+  List<SocketAddr>
+      dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(
+            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr)
+        .toList();
+  }
+
+  @protected
+  List<FileInfo> dco_decode_list_file_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_file_info).toList();
+  }
+
+  @protected
+  List<FileStats> dco_decode_list_file_stats(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_file_stats).toList();
+  }
+
+  @protected
+  List<PeerSessionStats> dco_decode_list_peer_session_stats(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_peer_session_stats).toList();
+  }
+
+  @protected
+  Uint64List dco_decode_list_prim_u_64_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Uint64List.from(raw);
+  }
+
+  @protected
+  Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint8List;
+  }
+
+  @protected
+  Mode dco_decode_mode(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return Mode_Download(
+          seeds:
+              dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+                  raw[1]),
+        );
+      case 1:
+        return Mode_Seed();
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  SocketAddr?
+      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            raw);
+  }
+
+  @protected
+  List<SocketAddr>?
+      dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            raw);
+  }
+
+  @protected
+  Uint64List? dco_decode_opt_list_prim_u_64_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_list_prim_u_64_strict(raw);
+  }
+
+  @protected
+  U8Array20? dco_decode_opt_u_8_array_20(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_u_8_array_20(raw);
+  }
+
+  @protected
+  PeerSessionStats dco_decode_peer_session_stats(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return PeerSessionStats(
+      addr:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+              arr[0]),
+      id: dco_decode_opt_u_8_array_20(arr[1]),
+      state: dco_decode_session_state(arr[2]),
+      pieceCount: dco_decode_u_64(arr[3]),
+      thruput: dco_decode_thruput_stats(arr[4]),
+    );
+  }
+
+  @protected
+  Peers dco_decode_peers(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return Peers_Count(
+          dco_decode_u_64(raw[1]),
+        );
+      case 1:
+        return Peers_Full(
+          dco_decode_list_peer_session_stats(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  PieceStats dco_decode_piece_stats(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return PieceStats(
+      total: dco_decode_u_64(arr[0]),
+      pending: dco_decode_u_64(arr[1]),
+      complete: dco_decode_u_64(arr[2]),
+      latestCompleted: dco_decode_opt_list_prim_u_64_strict(arr[3]),
+    );
+  }
+
+  @protected
+  SessionState dco_decode_session_state(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return SessionState(
+      connection: dco_decode_connection_state(arr[0]),
+      isChoked: dco_decode_bool(arr[1]),
+      isInterested: dco_decode_bool(arr[2]),
+      isPeerChoked: dco_decode_bool(arr[3]),
+      isPeerInterested: dco_decode_bool(arr[4]),
+    );
+  }
+
+  @protected
+  StorageInfo dco_decode_storage_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return StorageInfo(
+      pieceCount: dco_decode_u_64(arr[0]),
+      pieceLen: dco_decode_u_32(arr[1]),
+      lastPieceLen: dco_decode_u_32(arr[2]),
+      downloadLen: dco_decode_u_64(arr[3]),
+      downloadDir:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+              arr[4]),
+      files: dco_decode_list_file_info(arr[5]),
+    );
+  }
+
+  @protected
+  Thruput dco_decode_thruput(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return Thruput(
+      total: dco_decode_u_64(arr[0]),
+      rate: dco_decode_u_64(arr[1]),
+      peak: dco_decode_u_64(arr[2]),
+    );
+  }
+
+  @protected
+  ThruputHistory dco_decode_thruput_history(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return ThruputHistory(
+      peak: dco_decode_u_64(arr[0]),
+      total: dco_decode_u_64(arr[1]),
+      rates: dco_decode_list_prim_u_64_strict(arr[2]),
+    );
+  }
+
+  @protected
+  ThruputStats dco_decode_thruput_stats(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return ThruputStats(
+      protocol: dco_decode_channel(arr[0]),
+      payload: dco_decode_channel(arr[1]),
+      waste: dco_decode_u_64(arr[2]),
+    );
+  }
+
+  @protected
+  Torrent dco_decode_torrent(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 12)
+      throw Exception('unexpected arr length: expect 12 but see ${arr.length}');
+    return Torrent(
+      name: dco_decode_String(arr[0]),
+      infoHash: dco_decode_String(arr[1]),
+      pieceLen: dco_decode_u_32(arr[2]),
+      downloadLen: dco_decode_u_64(arr[3]),
+      storage: dco_decode_storage_info(arr[4]),
+      runDuration: dco_decode_Chrono_Duration(arr[5]),
+      pieces: dco_decode_piece_stats(arr[6]),
+      peers: dco_decode_peers(arr[7]),
+      files: dco_decode_list_file_stats(arr[8]),
+      protocol: dco_decode_channel_history(arr[9]),
+      payload: dco_decode_channel_history(arr[10]),
+      wastedPayloadCount: dco_decode_u_64(arr[11]),
+    );
+  }
+
+  @protected
+  int dco_decode_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  int dco_decode_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeI64OrU64(raw);
+  }
+
+  @protected
+  int dco_decode_u_8(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  U8Array20 dco_decode_u_8_array_20(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return U8Array20(dco_decode_list_prim_u_8_strict(raw));
+  }
+
   @protected
   void dco_decode_unit(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -164,6 +739,487 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int dco_decode_usize(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dcoDecodeI64OrU64(raw);
+  }
+
+  @protected
+  AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_String(deserializer);
+    return AnyhowException(inner);
+  }
+
+  @protected
+  PathBuf
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PathBuf.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  SocketAddr
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return SocketAddr.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  Str sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return Str.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  Duration sse_decode_Chrono_Duration(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_64(deserializer);
+    return Duration(microseconds: inner);
+  }
+
+  @protected
+  PathBuf
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PathBuf.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  SocketAddr
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return SocketAddr.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  Str sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return Str.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  String sse_decode_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_prim_u_8_strict(deserializer);
+    return utf8.decoder.convert(inner);
+  }
+
+  @protected
+  bool sse_decode_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8() != 0;
+  }
+
+  @protected
+  SocketAddr
+      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        deserializer));
+  }
+
+  @protected
+  DownloadArgs sse_decode_box_autoadd_download_args(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_download_args(deserializer));
+  }
+
+  @protected
+  Channel sse_decode_channel(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_down = sse_decode_thruput(deserializer);
+    var var_up = sse_decode_thruput(deserializer);
+    return Channel(down: var_down, up: var_up);
+  }
+
+  @protected
+  ChannelHistory sse_decode_channel_history(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_down = sse_decode_thruput_history(deserializer);
+    var var_up = sse_decode_thruput_history(deserializer);
+    return ChannelHistory(down: var_down, up: var_up);
+  }
+
+  @protected
+  ConnectionState sse_decode_connection_state(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return ConnectionState.values[inner];
+  }
+
+  @protected
+  DownloadArgs sse_decode_download_args(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_mode = sse_decode_mode(deserializer);
+    var var_downloadDir =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            deserializer);
+    var var_metainfo =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            deserializer);
+    var var_seeds =
+        sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            deserializer);
+    var var_listen =
+        sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            deserializer);
+    var var_quitAfterComplete = sse_decode_bool(deserializer);
+    return DownloadArgs(
+        mode: var_mode,
+        downloadDir: var_downloadDir,
+        metainfo: var_metainfo,
+        seeds: var_seeds,
+        listen: var_listen,
+        quitAfterComplete: var_quitAfterComplete);
+  }
+
+  @protected
+  FileInfo sse_decode_file_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_path =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            deserializer);
+    var var_len = sse_decode_u_64(deserializer);
+    var var_torrentOffset = sse_decode_u_64(deserializer);
+    return FileInfo(
+        path: var_path, len: var_len, torrentOffset: var_torrentOffset);
+  }
+
+  @protected
+  FileStats sse_decode_file_stats(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_info = sse_decode_file_info(deserializer);
+    var var_complete = sse_decode_u_64(deserializer);
+    return FileStats(info: var_info, complete: var_complete);
+  }
+
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  int sse_decode_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt64();
+  }
+
+  @protected
+  List<SocketAddr>
+      sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <SocketAddr>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(
+          sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+              deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<FileInfo> sse_decode_list_file_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FileInfo>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_file_info(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<FileStats> sse_decode_list_file_stats(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FileStats>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_file_stats(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<PeerSessionStats> sse_decode_list_peer_session_stats(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <PeerSessionStats>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_peer_session_stats(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  Uint64List sse_decode_list_prim_u_64_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint64List(len_);
+  }
+
+  @protected
+  Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  Mode sse_decode_mode(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_seeds =
+            sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+                deserializer);
+        return Mode_Download(seeds: var_seeds);
+      case 1:
+        return Mode_Seed();
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  SocketAddr?
+      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  List<SocketAddr>?
+      sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  Uint64List? sse_decode_opt_list_prim_u_64_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_list_prim_u_64_strict(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  U8Array20? sse_decode_opt_u_8_array_20(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_u_8_array_20(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  PeerSessionStats sse_decode_peer_session_stats(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_addr =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            deserializer);
+    var var_id = sse_decode_opt_u_8_array_20(deserializer);
+    var var_state = sse_decode_session_state(deserializer);
+    var var_pieceCount = sse_decode_u_64(deserializer);
+    var var_thruput = sse_decode_thruput_stats(deserializer);
+    return PeerSessionStats(
+        addr: var_addr,
+        id: var_id,
+        state: var_state,
+        pieceCount: var_pieceCount,
+        thruput: var_thruput);
+  }
+
+  @protected
+  Peers sse_decode_peers(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_field0 = sse_decode_u_64(deserializer);
+        return Peers_Count(var_field0);
+      case 1:
+        var var_field0 = sse_decode_list_peer_session_stats(deserializer);
+        return Peers_Full(var_field0);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  PieceStats sse_decode_piece_stats(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_total = sse_decode_u_64(deserializer);
+    var var_pending = sse_decode_u_64(deserializer);
+    var var_complete = sse_decode_u_64(deserializer);
+    var var_latestCompleted =
+        sse_decode_opt_list_prim_u_64_strict(deserializer);
+    return PieceStats(
+        total: var_total,
+        pending: var_pending,
+        complete: var_complete,
+        latestCompleted: var_latestCompleted);
+  }
+
+  @protected
+  SessionState sse_decode_session_state(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_connection = sse_decode_connection_state(deserializer);
+    var var_isChoked = sse_decode_bool(deserializer);
+    var var_isInterested = sse_decode_bool(deserializer);
+    var var_isPeerChoked = sse_decode_bool(deserializer);
+    var var_isPeerInterested = sse_decode_bool(deserializer);
+    return SessionState(
+        connection: var_connection,
+        isChoked: var_isChoked,
+        isInterested: var_isInterested,
+        isPeerChoked: var_isPeerChoked,
+        isPeerInterested: var_isPeerInterested);
+  }
+
+  @protected
+  StorageInfo sse_decode_storage_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_pieceCount = sse_decode_u_64(deserializer);
+    var var_pieceLen = sse_decode_u_32(deserializer);
+    var var_lastPieceLen = sse_decode_u_32(deserializer);
+    var var_downloadLen = sse_decode_u_64(deserializer);
+    var var_downloadDir =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            deserializer);
+    var var_files = sse_decode_list_file_info(deserializer);
+    return StorageInfo(
+        pieceCount: var_pieceCount,
+        pieceLen: var_pieceLen,
+        lastPieceLen: var_lastPieceLen,
+        downloadLen: var_downloadLen,
+        downloadDir: var_downloadDir,
+        files: var_files);
+  }
+
+  @protected
+  Thruput sse_decode_thruput(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_total = sse_decode_u_64(deserializer);
+    var var_rate = sse_decode_u_64(deserializer);
+    var var_peak = sse_decode_u_64(deserializer);
+    return Thruput(total: var_total, rate: var_rate, peak: var_peak);
+  }
+
+  @protected
+  ThruputHistory sse_decode_thruput_history(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_peak = sse_decode_u_64(deserializer);
+    var var_total = sse_decode_u_64(deserializer);
+    var var_rates = sse_decode_list_prim_u_64_strict(deserializer);
+    return ThruputHistory(peak: var_peak, total: var_total, rates: var_rates);
+  }
+
+  @protected
+  ThruputStats sse_decode_thruput_stats(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_protocol = sse_decode_channel(deserializer);
+    var var_payload = sse_decode_channel(deserializer);
+    var var_waste = sse_decode_u_64(deserializer);
+    return ThruputStats(
+        protocol: var_protocol, payload: var_payload, waste: var_waste);
+  }
+
+  @protected
+  Torrent sse_decode_torrent(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_name = sse_decode_String(deserializer);
+    var var_infoHash = sse_decode_String(deserializer);
+    var var_pieceLen = sse_decode_u_32(deserializer);
+    var var_downloadLen = sse_decode_u_64(deserializer);
+    var var_storage = sse_decode_storage_info(deserializer);
+    var var_runDuration = sse_decode_Chrono_Duration(deserializer);
+    var var_pieces = sse_decode_piece_stats(deserializer);
+    var var_peers = sse_decode_peers(deserializer);
+    var var_files = sse_decode_list_file_stats(deserializer);
+    var var_protocol = sse_decode_channel_history(deserializer);
+    var var_payload = sse_decode_channel_history(deserializer);
+    var var_wastedPayloadCount = sse_decode_u_64(deserializer);
+    return Torrent(
+        name: var_name,
+        infoHash: var_infoHash,
+        pieceLen: var_pieceLen,
+        downloadLen: var_downloadLen,
+        storage: var_storage,
+        runDuration: var_runDuration,
+        pieces: var_pieces,
+        peers: var_peers,
+        files: var_files,
+        protocol: var_protocol,
+        payload: var_payload,
+        wastedPayloadCount: var_wastedPayloadCount);
+  }
+
+  @protected
+  int sse_decode_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint32();
+  }
+
+  @protected
+  int sse_decode_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint64();
+  }
+
+  @protected
+  int sse_decode_u_8(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8();
+  }
+
+  @protected
+  U8Array20 sse_decode_u_8_array_20(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_prim_u_8_strict(deserializer);
+    return U8Array20(inner);
   }
 
   @protected
@@ -178,15 +1234,487 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  int sse_decode_i_32(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getInt32();
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+      PathBuf raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
   }
 
   @protected
-  bool sse_decode_bool(SseDeserializer deserializer) {
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      SocketAddr raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      Str raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: false);
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+      PathBuf raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      SocketAddr raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      Str raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  bool cst_encode_bool(bool raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_connection_state(ConnectionState raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_i_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_u_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_u_8(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void cst_encode_unit(void raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_usize(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void sse_encode_AnyhowException(
+      AnyhowException self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getUint8() != 0;
+    throw UnimplementedError('Unreachable ((');
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          PathBuf self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+          Str self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Chrono_Duration(Duration self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_64(self.inMicroseconds, serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          PathBuf self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+          Str self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_String(String self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
+
+  @protected
+  void sse_encode_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self ? 1 : 0);
+  }
+
+  @protected
+  void
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_download_args(
+      DownloadArgs self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_download_args(self, serializer);
+  }
+
+  @protected
+  void sse_encode_channel(Channel self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_thruput(self.down, serializer);
+    sse_encode_thruput(self.up, serializer);
+  }
+
+  @protected
+  void sse_encode_channel_history(
+      ChannelHistory self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_thruput_history(self.down, serializer);
+    sse_encode_thruput_history(self.up, serializer);
+  }
+
+  @protected
+  void sse_encode_connection_state(
+      ConnectionState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_download_args(DownloadArgs self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mode(self.mode, serializer);
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+        self.downloadDir, serializer);
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+        self.metainfo, serializer);
+    sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        self.seeds, serializer);
+    sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        self.listen, serializer);
+    sse_encode_bool(self.quitAfterComplete, serializer);
+  }
+
+  @protected
+  void sse_encode_file_info(FileInfo self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+        self.path, serializer);
+    sse_encode_u_64(self.len, serializer);
+    sse_encode_u_64(self.torrentOffset, serializer);
+  }
+
+  @protected
+  void sse_encode_file_stats(FileStats self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_file_info(self.info, serializer);
+    sse_encode_u_64(self.complete, serializer);
+  }
+
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_i_64(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt64(self);
+  }
+
+  @protected
+  void
+      sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          List<SocketAddr> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_file_info(
+      List<FileInfo> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_file_info(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_file_stats(
+      List<FileStats> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_file_stats(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_peer_session_stats(
+      List<PeerSessionStats> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_peer_session_stats(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_prim_u_64_strict(
+      Uint64List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint64List(self);
+  }
+
+  @protected
+  void sse_encode_list_prim_u_8_strict(
+      Uint8List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_mode(Mode self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case Mode_Download(seeds: final seeds):
+        sse_encode_i_32(0, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            seeds, serializer);
+      case Mode_Seed():
+        sse_encode_i_32(1, serializer);
+    }
+  }
+
+  @protected
+  void
+      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          self, serializer);
+    }
+  }
+
+  @protected
+  void
+      sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          List<SocketAddr>? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_list_prim_u_64_strict(
+      Uint64List? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_list_prim_u_64_strict(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_u_8_array_20(U8Array20? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_u_8_array_20(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_peer_session_stats(
+      PeerSessionStats self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        self.addr, serializer);
+    sse_encode_opt_u_8_array_20(self.id, serializer);
+    sse_encode_session_state(self.state, serializer);
+    sse_encode_u_64(self.pieceCount, serializer);
+    sse_encode_thruput_stats(self.thruput, serializer);
+  }
+
+  @protected
+  void sse_encode_peers(Peers self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case Peers_Count(field0: final field0):
+        sse_encode_i_32(0, serializer);
+        sse_encode_u_64(field0, serializer);
+      case Peers_Full(field0: final field0):
+        sse_encode_i_32(1, serializer);
+        sse_encode_list_peer_session_stats(field0, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_piece_stats(PieceStats self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.total, serializer);
+    sse_encode_u_64(self.pending, serializer);
+    sse_encode_u_64(self.complete, serializer);
+    sse_encode_opt_list_prim_u_64_strict(self.latestCompleted, serializer);
+  }
+
+  @protected
+  void sse_encode_session_state(SessionState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_connection_state(self.connection, serializer);
+    sse_encode_bool(self.isChoked, serializer);
+    sse_encode_bool(self.isInterested, serializer);
+    sse_encode_bool(self.isPeerChoked, serializer);
+    sse_encode_bool(self.isPeerInterested, serializer);
+  }
+
+  @protected
+  void sse_encode_storage_info(StorageInfo self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.pieceCount, serializer);
+    sse_encode_u_32(self.pieceLen, serializer);
+    sse_encode_u_32(self.lastPieceLen, serializer);
+    sse_encode_u_64(self.downloadLen, serializer);
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+        self.downloadDir, serializer);
+    sse_encode_list_file_info(self.files, serializer);
+  }
+
+  @protected
+  void sse_encode_thruput(Thruput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.total, serializer);
+    sse_encode_u_64(self.rate, serializer);
+    sse_encode_u_64(self.peak, serializer);
+  }
+
+  @protected
+  void sse_encode_thruput_history(
+      ThruputHistory self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.peak, serializer);
+    sse_encode_u_64(self.total, serializer);
+    sse_encode_list_prim_u_64_strict(self.rates, serializer);
+  }
+
+  @protected
+  void sse_encode_thruput_stats(ThruputStats self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_channel(self.protocol, serializer);
+    sse_encode_channel(self.payload, serializer);
+    sse_encode_u_64(self.waste, serializer);
+  }
+
+  @protected
+  void sse_encode_torrent(Torrent self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.name, serializer);
+    sse_encode_String(self.infoHash, serializer);
+    sse_encode_u_32(self.pieceLen, serializer);
+    sse_encode_u_64(self.downloadLen, serializer);
+    sse_encode_storage_info(self.storage, serializer);
+    sse_encode_Chrono_Duration(self.runDuration, serializer);
+    sse_encode_piece_stats(self.pieces, serializer);
+    sse_encode_peers(self.peers, serializer);
+    sse_encode_list_file_stats(self.files, serializer);
+    sse_encode_channel_history(self.protocol, serializer);
+    sse_encode_channel_history(self.payload, serializer);
+    sse_encode_u_64(self.wastedPayloadCount, serializer);
+  }
+
+  @protected
+  void sse_encode_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint32(self);
+  }
+
+  @protected
+  void sse_encode_u_64(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint64(self);
+  }
+
+  @protected
+  void sse_encode_u_8(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self);
+  }
+
+  @protected
+  void sse_encode_u_8_array_20(U8Array20 self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(self.inner, serializer);
   }
 
   @protected
@@ -198,17 +1726,5 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_usize(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint64(self);
-  }
-
-  @protected
-  void sse_encode_i_32(int self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putInt32(self);
-  }
-
-  @protected
-  void sse_encode_bool(bool self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putUint8(self ? 1 : 0);
   }
 }

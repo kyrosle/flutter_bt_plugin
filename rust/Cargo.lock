@@ -404,10 +404,13 @@ dependencies = [
 name = "flutter_bt_plugin"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "bt-rust",
  "flexi_logger",
  "flutter_rust_bridge",
  "hex",
+ "once_cell",
+ "tokio",
 ]
 
 [[package]]

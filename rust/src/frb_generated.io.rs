@@ -4,6 +4,7 @@
 // Section: imports
 
 use super::*;
+use crate::api::bt_api::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::transform_result_dco;
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -11,3 +12,912 @@ use flutter_rust_bridge::{Handler, IntoIntoDart};
 // Section: boilerplate
 
 flutter_rust_bridge::frb_generated_boilerplate_io!();
+
+// Section: dart2rust
+
+impl CstDecode<flutter_rust_bridge::for_generated::anyhow::Error>
+    for *mut wire_cst_list_prim_u_8_strict
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> flutter_rust_bridge::for_generated::anyhow::Error {
+        unimplemented!()
+    }
+}
+impl CstDecode<PathBuf> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> PathBuf {
+        CstDecode::<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>>::cst_decode(self).rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<SocketAddr> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> SocketAddr {
+        CstDecode::<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>>::cst_decode(self).rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<chrono::Duration> for i64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> chrono::Duration {
+        chrono::Duration::microseconds(self)
+    }
+}
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>>
+    for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>>
+    for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<str>>>
+    for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<str>> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> String {
+        let vec: Vec<u8> = self.cst_decode();
+        String::from_utf8(vec).unwrap()
+    }
+}
+impl CstDecode<SocketAddr> for *mut usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> SocketAddr {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<SocketAddr>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::libs::DownloadArgs> for *mut wire_cst_download_args {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::DownloadArgs {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::libs::DownloadArgs>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::bt_api::Channel> for wire_cst_channel {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Channel {
+        crate::api::bt_api::Channel {
+            down: self.down.cst_decode(),
+            up: self.up.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::ChannelHistory> for wire_cst_channel_history {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::ChannelHistory {
+        crate::libs::app::ChannelHistory {
+            down: self.down.cst_decode(),
+            up: self.up.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::DownloadArgs> for wire_cst_download_args {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::DownloadArgs {
+        crate::libs::DownloadArgs {
+            mode: self.mode.cst_decode(),
+            download_dir: self.download_dir.cst_decode(),
+            metainfo: self.metainfo.cst_decode(),
+            seeds: self.seeds.cst_decode(),
+            listen: self.listen.cst_decode(),
+            quit_after_complete: self.quit_after_complete.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::FileInfo> for wire_cst_file_info {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::FileInfo {
+        crate::api::bt_api::FileInfo {
+            path: self.path.cst_decode(),
+            len: self.len.cst_decode(),
+            torrent_offset: self.torrent_offset.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::FileStats> for wire_cst_file_stats {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::FileStats {
+        crate::libs::app::FileStats {
+            info: self.info.cst_decode(),
+            complete: self.complete.cst_decode(),
+        }
+    }
+}
+impl CstDecode<Vec<SocketAddr>> for *mut wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr {
+            // Codec=Cst (C-struct based), see doc to use other codecs
+            fn cst_decode(self) -> Vec<SocketAddr> {
+                let vec = unsafe {
+        let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+        flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+    };
+    vec.into_iter().map(CstDecode::cst_decode).collect()
+            }
+        }
+impl CstDecode<Vec<crate::api::bt_api::FileInfo>> for *mut wire_cst_list_file_info {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::bt_api::FileInfo> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<crate::libs::app::FileStats>> for *mut wire_cst_list_file_stats {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::libs::app::FileStats> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<crate::api::bt_api::PeerSessionStats>>
+    for *mut wire_cst_list_peer_session_stats
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::bt_api::PeerSessionStats> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<u64>> for *mut wire_cst_list_prim_u_64_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u64> {
+        unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
+impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u8> {
+        unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::Mode> for wire_cst_mode {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Mode {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.Download };
+                crate::api::bt_api::Mode::Download {
+                    seeds: ans.seeds.cst_decode(),
+                }
+            }
+            1 => crate::api::bt_api::Mode::Seed,
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::PeerSessionStats> for wire_cst_peer_session_stats {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::PeerSessionStats {
+        crate::api::bt_api::PeerSessionStats {
+            addr: self.addr.cst_decode(),
+            id: self.id.cst_decode(),
+            state: self.state.cst_decode(),
+            piece_count: self.piece_count.cst_decode(),
+            thruput: self.thruput.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::Peers> for wire_cst_peers {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Peers {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.Count };
+                crate::api::bt_api::Peers::Count(ans.field0.cst_decode())
+            }
+            1 => {
+                let ans = unsafe { self.kind.Full };
+                crate::api::bt_api::Peers::Full(ans.field0.cst_decode())
+            }
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::PieceStats> for wire_cst_piece_stats {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::PieceStats {
+        crate::api::bt_api::PieceStats {
+            total: self.total.cst_decode(),
+            pending: self.pending.cst_decode(),
+            complete: self.complete.cst_decode(),
+            latest_completed: self.latest_completed.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::SessionState> for wire_cst_session_state {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::SessionState {
+        crate::api::bt_api::SessionState {
+            connection: self.connection.cst_decode(),
+            is_choked: self.is_choked.cst_decode(),
+            is_interested: self.is_interested.cst_decode(),
+            is_peer_choked: self.is_peer_choked.cst_decode(),
+            is_peer_interested: self.is_peer_interested.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::StorageInfo> for wire_cst_storage_info {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::StorageInfo {
+        crate::api::bt_api::StorageInfo {
+            piece_count: self.piece_count.cst_decode(),
+            piece_len: self.piece_len.cst_decode(),
+            last_piece_len: self.last_piece_len.cst_decode(),
+            download_len: self.download_len.cst_decode(),
+            download_dir: self.download_dir.cst_decode(),
+            files: self.files.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::Thruput> for wire_cst_thruput {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::Thruput {
+        crate::api::bt_api::Thruput {
+            total: self.total.cst_decode(),
+            rate: self.rate.cst_decode(),
+            peak: self.peak.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::ThruputHistory> for wire_cst_thruput_history {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::ThruputHistory {
+        crate::libs::app::ThruputHistory {
+            peak: self.peak.cst_decode(),
+            total: self.total.cst_decode(),
+            rates: self.rates.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::bt_api::ThruputStats> for wire_cst_thruput_stats {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bt_api::ThruputStats {
+        crate::api::bt_api::ThruputStats {
+            protocol: self.protocol.cst_decode(),
+            payload: self.payload.cst_decode(),
+            waste: self.waste.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::libs::app::Torrent> for wire_cst_torrent {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::libs::app::Torrent {
+        crate::libs::app::Torrent {
+            name: self.name.cst_decode(),
+            info_hash: self.info_hash.cst_decode(),
+            piece_len: self.piece_len.cst_decode(),
+            download_len: self.download_len.cst_decode(),
+            storage: self.storage.cst_decode(),
+            run_duration: self.run_duration.cst_decode(),
+            pieces: self.pieces.cst_decode(),
+            peers: self.peers.cst_decode(),
+            files: self.files.cst_decode(),
+            protocol: self.protocol.cst_decode(),
+            payload: self.payload.cst_decode(),
+            wasted_payload_count: self.wasted_payload_count.cst_decode(),
+        }
+    }
+}
+impl CstDecode<[u8; 20]> for *mut wire_cst_list_prim_u_8_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> [u8; 20] {
+        let vec: Vec<u8> = self.cst_decode();
+        flutter_rust_bridge::for_generated::from_vec_to_array(vec)
+    }
+}
+impl NewWithNullPtr for wire_cst_channel {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            down: Default::default(),
+            up: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_channel {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_channel_history {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            down: Default::default(),
+            up: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_channel_history {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_download_args {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            mode: Default::default(),
+            download_dir: Default::default(),
+            metainfo: Default::default(),
+            seeds: core::ptr::null_mut(),
+            listen: core::ptr::null_mut(),
+            quit_after_complete: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_download_args {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_file_info {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            path: Default::default(),
+            len: Default::default(),
+            torrent_offset: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_file_info {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_file_stats {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            info: Default::default(),
+            complete: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_file_stats {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_mode {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: ModeKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_mode {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_peer_session_stats {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            addr: Default::default(),
+            id: core::ptr::null_mut(),
+            state: Default::default(),
+            piece_count: Default::default(),
+            thruput: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_peer_session_stats {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_peers {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: PeersKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_peers {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_piece_stats {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            total: Default::default(),
+            pending: Default::default(),
+            complete: Default::default(),
+            latest_completed: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_piece_stats {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_session_state {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            connection: Default::default(),
+            is_choked: Default::default(),
+            is_interested: Default::default(),
+            is_peer_choked: Default::default(),
+            is_peer_interested: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_session_state {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_storage_info {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            piece_count: Default::default(),
+            piece_len: Default::default(),
+            last_piece_len: Default::default(),
+            download_len: Default::default(),
+            download_dir: Default::default(),
+            files: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_storage_info {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_thruput {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            total: Default::default(),
+            rate: Default::default(),
+            peak: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_thruput {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_thruput_history {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            peak: Default::default(),
+            total: Default::default(),
+            rates: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_thruput_history {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_thruput_stats {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            protocol: Default::default(),
+            payload: Default::default(),
+            waste: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_thruput_stats {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_torrent {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            name: core::ptr::null_mut(),
+            info_hash: core::ptr::null_mut(),
+            piece_len: Default::default(),
+            download_len: Default::default(),
+            storage: Default::default(),
+            run_duration: Default::default(),
+            pieces: Default::default(),
+            peers: Default::default(),
+            files: core::ptr::null_mut(),
+            protocol: Default::default(),
+            payload: Default::default(),
+            wasted_payload_count: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_torrent {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_bt_close_event_listener(port_: i64) {
+    wire_bt_close_event_listener_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_bt_init_app(port_: i64, download_path: usize) {
+    wire_bt_init_app_impl(port_, download_path)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_bt_register_event_listener(port_: i64) {
+    wire_bt_register_event_listener_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_bt_start_up(
+    port_: i64,
+    args: *mut wire_cst_download_args,
+) {
+    wire_bt_start_up_impl(port_, args)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_init_app(port_: i64) {
+    wire_init_app_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_sum(
+    a: usize,
+    b: usize,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire_sum_impl(a, b)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_wire_sum_long_running(port_: i64, a: usize, b: usize) {
+    wire_sum_long_running_impl(port_, a, b)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<PathBuf>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<SocketAddr>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<str>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<str>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+) -> *mut usize {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(usize::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_box_autoadd_download_args(
+) -> *mut wire_cst_download_args {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_download_args::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(len: i32) -> *mut wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr{
+    let wrap = wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr { ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len), len };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_list_file_info(
+    len: i32,
+) -> *mut wire_cst_list_file_info {
+    let wrap = wire_cst_list_file_info {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_file_info>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_list_file_stats(
+    len: i32,
+) -> *mut wire_cst_list_file_stats {
+    let wrap = wire_cst_list_file_stats {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_file_stats>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_list_peer_session_stats(
+    len: i32,
+) -> *mut wire_cst_list_peer_session_stats {
+    let wrap = wire_cst_list_peer_session_stats {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_peer_session_stats>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_list_prim_u_64_strict(
+    len: i32,
+) -> *mut wire_cst_list_prim_u_64_strict {
+    let ans = wire_cst_list_prim_u_64_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_flutter_bt_plugin_cst_new_list_prim_u_8_strict(
+    len: i32,
+) -> *mut wire_cst_list_prim_u_8_strict {
+    let ans = wire_cst_list_prim_u_8_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_channel {
+    down: wire_cst_thruput,
+    up: wire_cst_thruput,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_channel_history {
+    down: wire_cst_thruput_history,
+    up: wire_cst_thruput_history,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_download_args { mode: wire_cst_mode,
+download_dir: usize,
+metainfo: usize,
+seeds: *mut wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr,
+listen: *mut usize,
+quit_after_complete: bool }
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_file_info {
+    path: usize,
+    len: u64,
+    torrent_offset: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_file_stats {
+    info: wire_cst_file_info,
+    complete: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr
+{
+    ptr: *mut usize,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_file_info {
+    ptr: *mut wire_cst_file_info,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_file_stats {
+    ptr: *mut wire_cst_file_stats,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_peer_session_stats {
+    ptr: *mut wire_cst_peer_session_stats,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_prim_u_64_strict {
+    ptr: *mut u64,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_prim_u_8_strict {
+    ptr: *mut u8,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_mode {
+    tag: i32,
+    kind: ModeKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union ModeKind {
+    Download: wire_cst_Mode_Download,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Mode_Download { seeds: *mut wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr, }
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_peer_session_stats {
+    addr: usize,
+    id: *mut wire_cst_list_prim_u_8_strict,
+    state: wire_cst_session_state,
+    piece_count: u64,
+    thruput: wire_cst_thruput_stats,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_peers {
+    tag: i32,
+    kind: PeersKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union PeersKind {
+    Count: wire_cst_Peers_Count,
+    Full: wire_cst_Peers_Full,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Peers_Count {
+    field0: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Peers_Full {
+    field0: *mut wire_cst_list_peer_session_stats,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_piece_stats {
+    total: u64,
+    pending: u64,
+    complete: u64,
+    latest_completed: *mut wire_cst_list_prim_u_64_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_session_state {
+    connection: i32,
+    is_choked: bool,
+    is_interested: bool,
+    is_peer_choked: bool,
+    is_peer_interested: bool,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_storage_info {
+    piece_count: u64,
+    piece_len: u32,
+    last_piece_len: u32,
+    download_len: u64,
+    download_dir: usize,
+    files: *mut wire_cst_list_file_info,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_thruput {
+    total: u64,
+    rate: u64,
+    peak: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_thruput_history {
+    peak: u64,
+    total: u64,
+    rates: *mut wire_cst_list_prim_u_64_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_thruput_stats {
+    protocol: wire_cst_channel,
+    payload: wire_cst_channel,
+    waste: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_torrent {
+    name: *mut wire_cst_list_prim_u_8_strict,
+    info_hash: *mut wire_cst_list_prim_u_8_strict,
+    piece_len: u32,
+    download_len: u64,
+    storage: wire_cst_storage_info,
+    run_duration: i64,
+    pieces: wire_cst_piece_stats,
+    peers: wire_cst_peers,
+    files: *mut wire_cst_list_file_stats,
+    protocol: wire_cst_channel_history,
+    payload: wire_cst_channel_history,
+    wasted_payload_count: u64,
+}

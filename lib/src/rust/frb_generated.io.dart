@@ -3,11 +3,14 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/bt_api.dart';
 import 'api/simple.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
+import 'libs.dart';
+import 'libs/app.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 
 abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
@@ -18,11 +21,323 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     required super.portManager,
   });
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PathBufPtr => wire
+      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBufPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_SocketAddrPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_StrPtr => wire
+      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstrPtr;
+
+  @protected
+  AnyhowException dco_decode_AnyhowException(dynamic raw);
+
+  @protected
+  PathBuf
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          dynamic raw);
+
+  @protected
+  SocketAddr
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw);
+
+  @protected
+  Str dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      dynamic raw);
+
+  @protected
+  Duration dco_decode_Chrono_Duration(dynamic raw);
+
+  @protected
+  PathBuf
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          dynamic raw);
+
+  @protected
+  SocketAddr
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw);
+
+  @protected
+  Str dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      dynamic raw);
+
+  @protected
+  String dco_decode_String(dynamic raw);
+
+  @protected
+  bool dco_decode_bool(dynamic raw);
+
+  @protected
+  SocketAddr
+      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw);
+
+  @protected
+  DownloadArgs dco_decode_box_autoadd_download_args(dynamic raw);
+
+  @protected
+  Channel dco_decode_channel(dynamic raw);
+
+  @protected
+  ChannelHistory dco_decode_channel_history(dynamic raw);
+
+  @protected
+  ConnectionState dco_decode_connection_state(dynamic raw);
+
+  @protected
+  DownloadArgs dco_decode_download_args(dynamic raw);
+
+  @protected
+  FileInfo dco_decode_file_info(dynamic raw);
+
+  @protected
+  FileStats dco_decode_file_stats(dynamic raw);
+
+  @protected
+  int dco_decode_i_32(dynamic raw);
+
+  @protected
+  int dco_decode_i_64(dynamic raw);
+
+  @protected
+  List<SocketAddr>
+      dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw);
+
+  @protected
+  List<FileInfo> dco_decode_list_file_info(dynamic raw);
+
+  @protected
+  List<FileStats> dco_decode_list_file_stats(dynamic raw);
+
+  @protected
+  List<PeerSessionStats> dco_decode_list_peer_session_stats(dynamic raw);
+
+  @protected
+  Uint64List dco_decode_list_prim_u_64_strict(dynamic raw);
+
+  @protected
+  Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  Mode dco_decode_mode(dynamic raw);
+
+  @protected
+  SocketAddr?
+      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw);
+
+  @protected
+  List<SocketAddr>?
+      dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          dynamic raw);
+
+  @protected
+  Uint64List? dco_decode_opt_list_prim_u_64_strict(dynamic raw);
+
+  @protected
+  U8Array20? dco_decode_opt_u_8_array_20(dynamic raw);
+
+  @protected
+  PeerSessionStats dco_decode_peer_session_stats(dynamic raw);
+
+  @protected
+  Peers dco_decode_peers(dynamic raw);
+
+  @protected
+  PieceStats dco_decode_piece_stats(dynamic raw);
+
+  @protected
+  SessionState dco_decode_session_state(dynamic raw);
+
+  @protected
+  StorageInfo dco_decode_storage_info(dynamic raw);
+
+  @protected
+  Thruput dco_decode_thruput(dynamic raw);
+
+  @protected
+  ThruputHistory dco_decode_thruput_history(dynamic raw);
+
+  @protected
+  ThruputStats dco_decode_thruput_stats(dynamic raw);
+
+  @protected
+  Torrent dco_decode_torrent(dynamic raw);
+
+  @protected
+  int dco_decode_u_32(dynamic raw);
+
+  @protected
+  int dco_decode_u_64(dynamic raw);
+
+  @protected
+  int dco_decode_u_8(dynamic raw);
+
+  @protected
+  U8Array20 dco_decode_u_8_array_20(dynamic raw);
+
   @protected
   void dco_decode_unit(dynamic raw);
 
   @protected
   int dco_decode_usize(dynamic raw);
+
+  @protected
+  AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
+
+  @protected
+  PathBuf
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          SseDeserializer deserializer);
+
+  @protected
+  SocketAddr
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer);
+
+  @protected
+  Str sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      SseDeserializer deserializer);
+
+  @protected
+  Duration sse_decode_Chrono_Duration(SseDeserializer deserializer);
+
+  @protected
+  PathBuf
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          SseDeserializer deserializer);
+
+  @protected
+  SocketAddr
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer);
+
+  @protected
+  Str sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      SseDeserializer deserializer);
+
+  @protected
+  String sse_decode_String(SseDeserializer deserializer);
+
+  @protected
+  bool sse_decode_bool(SseDeserializer deserializer);
+
+  @protected
+  SocketAddr
+      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer);
+
+  @protected
+  DownloadArgs sse_decode_box_autoadd_download_args(
+      SseDeserializer deserializer);
+
+  @protected
+  Channel sse_decode_channel(SseDeserializer deserializer);
+
+  @protected
+  ChannelHistory sse_decode_channel_history(SseDeserializer deserializer);
+
+  @protected
+  ConnectionState sse_decode_connection_state(SseDeserializer deserializer);
+
+  @protected
+  DownloadArgs sse_decode_download_args(SseDeserializer deserializer);
+
+  @protected
+  FileInfo sse_decode_file_info(SseDeserializer deserializer);
+
+  @protected
+  FileStats sse_decode_file_stats(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_i_64(SseDeserializer deserializer);
+
+  @protected
+  List<SocketAddr>
+      sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer);
+
+  @protected
+  List<FileInfo> sse_decode_list_file_info(SseDeserializer deserializer);
+
+  @protected
+  List<FileStats> sse_decode_list_file_stats(SseDeserializer deserializer);
+
+  @protected
+  List<PeerSessionStats> sse_decode_list_peer_session_stats(
+      SseDeserializer deserializer);
+
+  @protected
+  Uint64List sse_decode_list_prim_u_64_strict(SseDeserializer deserializer);
+
+  @protected
+  Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+
+  @protected
+  Mode sse_decode_mode(SseDeserializer deserializer);
+
+  @protected
+  SocketAddr?
+      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer);
+
+  @protected
+  List<SocketAddr>?
+      sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SseDeserializer deserializer);
+
+  @protected
+  Uint64List? sse_decode_opt_list_prim_u_64_strict(
+      SseDeserializer deserializer);
+
+  @protected
+  U8Array20? sse_decode_opt_u_8_array_20(SseDeserializer deserializer);
+
+  @protected
+  PeerSessionStats sse_decode_peer_session_stats(SseDeserializer deserializer);
+
+  @protected
+  Peers sse_decode_peers(SseDeserializer deserializer);
+
+  @protected
+  PieceStats sse_decode_piece_stats(SseDeserializer deserializer);
+
+  @protected
+  SessionState sse_decode_session_state(SseDeserializer deserializer);
+
+  @protected
+  StorageInfo sse_decode_storage_info(SseDeserializer deserializer);
+
+  @protected
+  Thruput sse_decode_thruput(SseDeserializer deserializer);
+
+  @protected
+  ThruputHistory sse_decode_thruput_history(SseDeserializer deserializer);
+
+  @protected
+  ThruputStats sse_decode_thruput_stats(SseDeserializer deserializer);
+
+  @protected
+  Torrent sse_decode_torrent(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_u_32(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_u_64(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_u_8(SseDeserializer deserializer);
+
+  @protected
+  U8Array20 sse_decode_u_8_array_20(SseDeserializer deserializer);
 
   @protected
   void sse_decode_unit(SseDeserializer deserializer);
@@ -31,26 +346,574 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int sse_decode_usize(SseDeserializer deserializer);
 
   @protected
-  int sse_decode_i_32(SseDeserializer deserializer);
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_AnyhowException(
+      AnyhowException raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    throw UnimplementedError();
+  }
 
   @protected
-  bool sse_decode_bool(SseDeserializer deserializer);
+  int cst_encode_Chrono_Duration(Duration raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_64(raw.inMicroseconds);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_String(String raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_prim_u_8_strict(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<int>
+      cst_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire
+        .cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr();
+    cst_api_fill_to_wire_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_download_args> cst_encode_box_autoadd_download_args(
+      DownloadArgs raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_download_args();
+    cst_api_fill_to_wire_download_args(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  int cst_encode_i_64(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.toInt();
+  }
+
+  @protected
+  ffi.Pointer<
+          wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+      cst_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          List<SocketAddr> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire
+        .cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      ans.ref.ptr[i] =
+          cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+              raw[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_file_info> cst_encode_list_file_info(
+      List<FileInfo> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_file_info(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_file_info(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_file_stats> cst_encode_list_file_stats(
+      List<FileStats> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_file_stats(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_file_stats(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_peer_session_stats>
+      cst_encode_list_peer_session_stats(List<PeerSessionStats> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_peer_session_stats(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_peer_session_stats(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_64_strict> cst_encode_list_prim_u_64_strict(
+      Uint64List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_64_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw.inner);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_list_prim_u_8_strict(
+      Uint8List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_8_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<int>
+      cst_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            raw);
+  }
+
+  @protected
+  ffi.Pointer<
+          wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+      cst_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          List<SocketAddr>? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_64_strict>
+      cst_encode_opt_list_prim_u_64_strict(Uint64List? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_list_prim_u_64_strict(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_opt_u_8_array_20(
+      U8Array20? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_u_8_array_20(raw);
+  }
+
+  @protected
+  int cst_encode_u_64(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.toInt();
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_u_8_array_20(
+      U8Array20 raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_8_strict(20);
+    ans.ref.ptr.asTypedList(20).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  void
+      cst_api_fill_to_wire_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr apiObj, ffi.Pointer<int> wireObj) {
+    cst_api_fill_to_wire_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+        apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_download_args(
+      DownloadArgs apiObj, ffi.Pointer<wire_cst_download_args> wireObj) {
+    cst_api_fill_to_wire_download_args(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_channel(Channel apiObj, wire_cst_channel wireObj) {
+    cst_api_fill_to_wire_thruput(apiObj.down, wireObj.down);
+    cst_api_fill_to_wire_thruput(apiObj.up, wireObj.up);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_channel_history(
+      ChannelHistory apiObj, wire_cst_channel_history wireObj) {
+    cst_api_fill_to_wire_thruput_history(apiObj.down, wireObj.down);
+    cst_api_fill_to_wire_thruput_history(apiObj.up, wireObj.up);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_download_args(
+      DownloadArgs apiObj, wire_cst_download_args wireObj) {
+    cst_api_fill_to_wire_mode(apiObj.mode, wireObj.mode);
+    wireObj.download_dir =
+        cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            apiObj.downloadDir);
+    wireObj.metainfo =
+        cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            apiObj.metainfo);
+    wireObj.seeds =
+        cst_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            apiObj.seeds);
+    wireObj.listen =
+        cst_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            apiObj.listen);
+    wireObj.quit_after_complete = cst_encode_bool(apiObj.quitAfterComplete);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_file_info(
+      FileInfo apiObj, wire_cst_file_info wireObj) {
+    wireObj.path =
+        cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            apiObj.path);
+    wireObj.len = cst_encode_u_64(apiObj.len);
+    wireObj.torrent_offset = cst_encode_u_64(apiObj.torrentOffset);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_file_stats(
+      FileStats apiObj, wire_cst_file_stats wireObj) {
+    cst_api_fill_to_wire_file_info(apiObj.info, wireObj.info);
+    wireObj.complete = cst_encode_u_64(apiObj.complete);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_mode(Mode apiObj, wire_cst_mode wireObj) {
+    if (apiObj is Mode_Download) {
+      var pre_seeds =
+          cst_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+              apiObj.seeds);
+      wireObj.tag = 0;
+      wireObj.kind.Download.seeds = pre_seeds;
+      return;
+    }
+    if (apiObj is Mode_Seed) {
+      wireObj.tag = 1;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_peer_session_stats(
+      PeerSessionStats apiObj, wire_cst_peer_session_stats wireObj) {
+    wireObj.addr =
+        cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+            apiObj.addr);
+    wireObj.id = cst_encode_opt_u_8_array_20(apiObj.id);
+    cst_api_fill_to_wire_session_state(apiObj.state, wireObj.state);
+    wireObj.piece_count = cst_encode_u_64(apiObj.pieceCount);
+    cst_api_fill_to_wire_thruput_stats(apiObj.thruput, wireObj.thruput);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_peers(Peers apiObj, wire_cst_peers wireObj) {
+    if (apiObj is Peers_Count) {
+      var pre_field0 = cst_encode_u_64(apiObj.field0);
+      wireObj.tag = 0;
+      wireObj.kind.Count.field0 = pre_field0;
+      return;
+    }
+    if (apiObj is Peers_Full) {
+      var pre_field0 = cst_encode_list_peer_session_stats(apiObj.field0);
+      wireObj.tag = 1;
+      wireObj.kind.Full.field0 = pre_field0;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_piece_stats(
+      PieceStats apiObj, wire_cst_piece_stats wireObj) {
+    wireObj.total = cst_encode_u_64(apiObj.total);
+    wireObj.pending = cst_encode_u_64(apiObj.pending);
+    wireObj.complete = cst_encode_u_64(apiObj.complete);
+    wireObj.latest_completed =
+        cst_encode_opt_list_prim_u_64_strict(apiObj.latestCompleted);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_session_state(
+      SessionState apiObj, wire_cst_session_state wireObj) {
+    wireObj.connection = cst_encode_connection_state(apiObj.connection);
+    wireObj.is_choked = cst_encode_bool(apiObj.isChoked);
+    wireObj.is_interested = cst_encode_bool(apiObj.isInterested);
+    wireObj.is_peer_choked = cst_encode_bool(apiObj.isPeerChoked);
+    wireObj.is_peer_interested = cst_encode_bool(apiObj.isPeerInterested);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_storage_info(
+      StorageInfo apiObj, wire_cst_storage_info wireObj) {
+    wireObj.piece_count = cst_encode_u_64(apiObj.pieceCount);
+    wireObj.piece_len = cst_encode_u_32(apiObj.pieceLen);
+    wireObj.last_piece_len = cst_encode_u_32(apiObj.lastPieceLen);
+    wireObj.download_len = cst_encode_u_64(apiObj.downloadLen);
+    wireObj.download_dir =
+        cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+            apiObj.downloadDir);
+    wireObj.files = cst_encode_list_file_info(apiObj.files);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_thruput(Thruput apiObj, wire_cst_thruput wireObj) {
+    wireObj.total = cst_encode_u_64(apiObj.total);
+    wireObj.rate = cst_encode_u_64(apiObj.rate);
+    wireObj.peak = cst_encode_u_64(apiObj.peak);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_thruput_history(
+      ThruputHistory apiObj, wire_cst_thruput_history wireObj) {
+    wireObj.peak = cst_encode_u_64(apiObj.peak);
+    wireObj.total = cst_encode_u_64(apiObj.total);
+    wireObj.rates = cst_encode_list_prim_u_64_strict(apiObj.rates);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_thruput_stats(
+      ThruputStats apiObj, wire_cst_thruput_stats wireObj) {
+    cst_api_fill_to_wire_channel(apiObj.protocol, wireObj.protocol);
+    cst_api_fill_to_wire_channel(apiObj.payload, wireObj.payload);
+    wireObj.waste = cst_encode_u_64(apiObj.waste);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_torrent(Torrent apiObj, wire_cst_torrent wireObj) {
+    wireObj.name = cst_encode_String(apiObj.name);
+    wireObj.info_hash = cst_encode_String(apiObj.infoHash);
+    wireObj.piece_len = cst_encode_u_32(apiObj.pieceLen);
+    wireObj.download_len = cst_encode_u_64(apiObj.downloadLen);
+    cst_api_fill_to_wire_storage_info(apiObj.storage, wireObj.storage);
+    wireObj.run_duration = cst_encode_Chrono_Duration(apiObj.runDuration);
+    cst_api_fill_to_wire_piece_stats(apiObj.pieces, wireObj.pieces);
+    cst_api_fill_to_wire_peers(apiObj.peers, wireObj.peers);
+    wireObj.files = cst_encode_list_file_stats(apiObj.files);
+    cst_api_fill_to_wire_channel_history(apiObj.protocol, wireObj.protocol);
+    cst_api_fill_to_wire_channel_history(apiObj.payload, wireObj.payload);
+    wireObj.wasted_payload_count = cst_encode_u_64(apiObj.wastedPayloadCount);
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+      PathBuf raw);
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      SocketAddr raw);
+
+  @protected
+  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      Str raw);
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+      PathBuf raw);
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      SocketAddr raw);
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      Str raw);
+
+  @protected
+  bool cst_encode_bool(bool raw);
+
+  @protected
+  int cst_encode_connection_state(ConnectionState raw);
+
+  @protected
+  int cst_encode_i_32(int raw);
+
+  @protected
+  int cst_encode_u_32(int raw);
+
+  @protected
+  int cst_encode_u_8(int raw);
+
+  @protected
+  void cst_encode_unit(void raw);
+
+  @protected
+  int cst_encode_usize(int raw);
+
+  @protected
+  void sse_encode_AnyhowException(
+      AnyhowException self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          PathBuf self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+          Str self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Chrono_Duration(Duration self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+          PathBuf self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+          Str self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_String(String self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_bool(bool self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_download_args(
+      DownloadArgs self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_channel(Channel self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_channel_history(
+      ChannelHistory self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_connection_state(
+      ConnectionState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_download_args(DownloadArgs self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_file_info(FileInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_file_stats(FileStats self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_i_64(int self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          List<SocketAddr> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_file_info(List<FileInfo> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_file_stats(
+      List<FileStats> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_peer_session_stats(
+      List<PeerSessionStats> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_64_strict(
+      Uint64List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_8_strict(
+      Uint8List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_mode(Mode self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          SocketAddr? self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+          List<SocketAddr>? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_list_prim_u_64_strict(
+      Uint64List? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_u_8_array_20(U8Array20? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_peer_session_stats(
+      PeerSessionStats self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_peers(Peers self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_piece_stats(PieceStats self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_session_state(SessionState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_storage_info(StorageInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_thruput(Thruput self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_thruput_history(
+      ThruputHistory self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_thruput_stats(ThruputStats self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_torrent(Torrent self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_64(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_8(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_8_array_20(U8Array20 self, SseSerializer serializer);
 
   @protected
   void sse_encode_unit(void self, SseSerializer serializer);
 
   @protected
   void sse_encode_usize(int self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_i_32(int self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_bool(bool self, SseSerializer serializer);
 }
 
 // Section: wire_class
 
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_positional_boolean_parameters, annotate_overrides, constant_identifier_names
+// AUTO GENERATED FILE, DO NOT EDIT.
+//
+// Generated by `package:ffigen`.
+// ignore_for_file: type=lint
+
+/// generated by flutter_rust_bridge
 class RustLibWire implements BaseWire {
   factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
       RustLibWire(lib.ffiDynamicLibrary);
@@ -62,4 +925,625 @@ class RustLibWire implements BaseWire {
   /// The symbols are looked up in [dynamicLibrary].
   RustLibWire(ffi.DynamicLibrary dynamicLibrary)
       : _lookup = dynamicLibrary.lookup;
+
+  /// The symbols are looked up with [lookup].
+  RustLibWire.fromLookup(
+      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+          lookup)
+      : _lookup = lookup;
+
+  void store_dart_post_cobject(
+    DartPostCObjectFnType ptr,
+  ) {
+    return _store_dart_post_cobject(
+      ptr,
+    );
+  }
+
+  late final _store_dart_post_cobjectPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
+          'store_dart_post_cobject');
+  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
+      .asFunction<void Function(DartPostCObjectFnType)>();
+
+  void wire_bt_close_event_listener(
+    int port_,
+  ) {
+    return _wire_bt_close_event_listener(
+      port_,
+    );
+  }
+
+  late final _wire_bt_close_event_listenerPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'frbgen_flutter_bt_plugin_wire_bt_close_event_listener');
+  late final _wire_bt_close_event_listener =
+      _wire_bt_close_event_listenerPtr.asFunction<void Function(int)>();
+
+  void wire_bt_init_app(
+    int port_,
+    int download_path,
+  ) {
+    return _wire_bt_init_app(
+      port_,
+      download_path,
+    );
+  }
+
+  late final _wire_bt_init_appPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+          'frbgen_flutter_bt_plugin_wire_bt_init_app');
+  late final _wire_bt_init_app =
+      _wire_bt_init_appPtr.asFunction<void Function(int, int)>();
+
+  void wire_bt_register_event_listener(
+    int port_,
+  ) {
+    return _wire_bt_register_event_listener(
+      port_,
+    );
+  }
+
+  late final _wire_bt_register_event_listenerPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'frbgen_flutter_bt_plugin_wire_bt_register_event_listener');
+  late final _wire_bt_register_event_listener =
+      _wire_bt_register_event_listenerPtr.asFunction<void Function(int)>();
+
+  void wire_bt_start_up(
+    int port_,
+    ffi.Pointer<wire_cst_download_args> args,
+  ) {
+    return _wire_bt_start_up(
+      port_,
+      args,
+    );
+  }
+
+  late final _wire_bt_start_upPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_download_args>)>>(
+      'frbgen_flutter_bt_plugin_wire_bt_start_up');
+  late final _wire_bt_start_up = _wire_bt_start_upPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_download_args>)>();
+
+  void wire_init_app(
+    int port_,
+  ) {
+    return _wire_init_app(
+      port_,
+    );
+  }
+
+  late final _wire_init_appPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'frbgen_flutter_bt_plugin_wire_init_app');
+  late final _wire_init_app =
+      _wire_init_appPtr.asFunction<void Function(int)>();
+
+  WireSyncRust2DartDco wire_sum(
+    int a,
+    int b,
+  ) {
+    return _wire_sum(
+      a,
+      b,
+    );
+  }
+
+  late final _wire_sumPtr = _lookup<
+      ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+              ffi.UintPtr, ffi.UintPtr)>>('frbgen_flutter_bt_plugin_wire_sum');
+  late final _wire_sum =
+      _wire_sumPtr.asFunction<WireSyncRust2DartDco Function(int, int)>();
+
+  void wire_sum_long_running(
+    int port_,
+    int a,
+    int b,
+  ) {
+    return _wire_sum_long_running(
+      port_,
+      a,
+      b,
+    );
+  }
+
+  late final _wire_sum_long_runningPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.UintPtr,
+              ffi.UintPtr)>>('frbgen_flutter_bt_plugin_wire_sum_long_running');
+  late final _wire_sum_long_running =
+      _wire_sum_long_runningPtr.asFunction<void Function(int, int, int)>();
+
+  void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBufPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_flutter_bt_plugin_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBufPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBufPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_flutter_bt_plugin_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBuf =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockPathBufPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_flutter_bt_plugin_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_flutter_bt_plugin_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstrPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_flutter_bt_plugin_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstrPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstrPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_flutter_bt_plugin_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstr =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockstrPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<ffi.UintPtr>
+      cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr() {
+    return _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr();
+  }
+
+  late final _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.UintPtr> Function()>>(
+          'frbgen_flutter_bt_plugin_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr');
+  late final _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr =
+      _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr
+          .asFunction<ffi.Pointer<ffi.UintPtr> Function()>();
+
+  ffi.Pointer<wire_cst_download_args> cst_new_box_autoadd_download_args() {
+    return _cst_new_box_autoadd_download_args();
+  }
+
+  late final _cst_new_box_autoadd_download_argsPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_download_args> Function()>>(
+      'frbgen_flutter_bt_plugin_cst_new_box_autoadd_download_args');
+  late final _cst_new_box_autoadd_download_args =
+      _cst_new_box_autoadd_download_argsPtr
+          .asFunction<ffi.Pointer<wire_cst_download_args> Function()>();
+
+  ffi.Pointer<
+          wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+      cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+    int len,
+  ) {
+    return _cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr(
+      len,
+    );
+  }
+
+  late final _cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr =
+      _lookup<
+              ffi.NativeFunction<
+                  ffi.Pointer<
+                          wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+                      Function(ffi.Int32)>>(
+          'frbgen_flutter_bt_plugin_cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr');
+  late final _cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr =
+      _cst_new_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddrPtr
+          .asFunction<
+              ffi.Pointer<
+                      wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+                  Function(int)>();
+
+  ffi.Pointer<wire_cst_list_file_info> cst_new_list_file_info(
+    int len,
+  ) {
+    return _cst_new_list_file_info(
+      len,
+    );
+  }
+
+  late final _cst_new_list_file_infoPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_file_info> Function(
+              ffi.Int32)>>('frbgen_flutter_bt_plugin_cst_new_list_file_info');
+  late final _cst_new_list_file_info = _cst_new_list_file_infoPtr
+      .asFunction<ffi.Pointer<wire_cst_list_file_info> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_file_stats> cst_new_list_file_stats(
+    int len,
+  ) {
+    return _cst_new_list_file_stats(
+      len,
+    );
+  }
+
+  late final _cst_new_list_file_statsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_file_stats> Function(
+              ffi.Int32)>>('frbgen_flutter_bt_plugin_cst_new_list_file_stats');
+  late final _cst_new_list_file_stats = _cst_new_list_file_statsPtr
+      .asFunction<ffi.Pointer<wire_cst_list_file_stats> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_peer_session_stats> cst_new_list_peer_session_stats(
+    int len,
+  ) {
+    return _cst_new_list_peer_session_stats(
+      len,
+    );
+  }
+
+  late final _cst_new_list_peer_session_statsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_peer_session_stats> Function(
+                  ffi.Int32)>>(
+      'frbgen_flutter_bt_plugin_cst_new_list_peer_session_stats');
+  late final _cst_new_list_peer_session_stats =
+      _cst_new_list_peer_session_statsPtr.asFunction<
+          ffi.Pointer<wire_cst_list_peer_session_stats> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_64_strict> cst_new_list_prim_u_64_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_64_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_64_strictPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_prim_u_64_strict> Function(ffi.Int32)>>(
+      'frbgen_flutter_bt_plugin_cst_new_list_prim_u_64_strict');
+  late final _cst_new_list_prim_u_64_strict = _cst_new_list_prim_u_64_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_64_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_new_list_prim_u_8_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_8_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_8_strictPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(ffi.Int32)>>(
+      'frbgen_flutter_bt_plugin_cst_new_list_prim_u_8_strict');
+  late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
+
+  int dummy_method_to_enforce_bundling() {
+    return _dummy_method_to_enforce_bundling();
+  }
+
+  late final _dummy_method_to_enforce_bundlingPtr =
+      _lookup<ffi.NativeFunction<ffi.Int64 Function()>>(
+          'dummy_method_to_enforce_bundling');
+  late final _dummy_method_to_enforce_bundling =
+      _dummy_method_to_enforce_bundlingPtr.asFunction<int Function()>();
+}
+
+typedef DartPostCObjectFnType = ffi.Pointer<
+    ffi.NativeFunction<
+        ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message)>>;
+typedef DartPort = ffi.Int64;
+
+final class wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr
+    extends ffi.Struct {
+  external ffi.Pointer<ffi.UintPtr> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_Mode_Download extends ffi.Struct {
+  external ffi.Pointer<
+          wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+      seeds;
+}
+
+final class ModeKind extends ffi.Union {
+  external wire_cst_Mode_Download Download;
+}
+
+final class wire_cst_mode extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external ModeKind kind;
+}
+
+final class wire_cst_download_args extends ffi.Struct {
+  external wire_cst_mode mode;
+
+  @ffi.UintPtr()
+  external int download_dir;
+
+  @ffi.UintPtr()
+  external int metainfo;
+
+  external ffi.Pointer<
+          wire_cst_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockSocketAddr>
+      seeds;
+
+  external ffi.Pointer<ffi.UintPtr> listen;
+
+  @ffi.Bool()
+  external bool quit_after_complete;
+}
+
+final class wire_cst_file_info extends ffi.Struct {
+  @ffi.UintPtr()
+  external int path;
+
+  @ffi.Uint64()
+  external int len;
+
+  @ffi.Uint64()
+  external int torrent_offset;
+}
+
+final class wire_cst_list_file_info extends ffi.Struct {
+  external ffi.Pointer<wire_cst_file_info> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_file_stats extends ffi.Struct {
+  external wire_cst_file_info info;
+
+  @ffi.Uint64()
+  external int complete;
+}
+
+final class wire_cst_list_file_stats extends ffi.Struct {
+  external ffi.Pointer<wire_cst_file_stats> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_session_state extends ffi.Struct {
+  @ffi.Int32()
+  external int connection;
+
+  @ffi.Bool()
+  external bool is_choked;
+
+  @ffi.Bool()
+  external bool is_interested;
+
+  @ffi.Bool()
+  external bool is_peer_choked;
+
+  @ffi.Bool()
+  external bool is_peer_interested;
+}
+
+final class wire_cst_thruput extends ffi.Struct {
+  @ffi.Uint64()
+  external int total;
+
+  @ffi.Uint64()
+  external int rate;
+
+  @ffi.Uint64()
+  external int peak;
+}
+
+final class wire_cst_channel extends ffi.Struct {
+  external wire_cst_thruput down;
+
+  external wire_cst_thruput up;
+}
+
+final class wire_cst_thruput_stats extends ffi.Struct {
+  external wire_cst_channel protocol;
+
+  external wire_cst_channel payload;
+
+  @ffi.Uint64()
+  external int waste;
+}
+
+final class wire_cst_peer_session_stats extends ffi.Struct {
+  @ffi.UintPtr()
+  external int addr;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> id;
+
+  external wire_cst_session_state state;
+
+  @ffi.Uint64()
+  external int piece_count;
+
+  external wire_cst_thruput_stats thruput;
+}
+
+final class wire_cst_list_peer_session_stats extends ffi.Struct {
+  external ffi.Pointer<wire_cst_peer_session_stats> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_prim_u_64_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint64> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_thruput_history extends ffi.Struct {
+  @ffi.Uint64()
+  external int peak;
+
+  @ffi.Uint64()
+  external int total;
+
+  external ffi.Pointer<wire_cst_list_prim_u_64_strict> rates;
+}
+
+final class wire_cst_channel_history extends ffi.Struct {
+  external wire_cst_thruput_history down;
+
+  external wire_cst_thruput_history up;
+}
+
+final class wire_cst_Peers_Count extends ffi.Struct {
+  @ffi.Uint64()
+  external int field0;
+}
+
+final class wire_cst_Peers_Full extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_peer_session_stats> field0;
+}
+
+final class PeersKind extends ffi.Union {
+  external wire_cst_Peers_Count Count;
+
+  external wire_cst_Peers_Full Full;
+}
+
+final class wire_cst_peers extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external PeersKind kind;
+}
+
+final class wire_cst_piece_stats extends ffi.Struct {
+  @ffi.Uint64()
+  external int total;
+
+  @ffi.Uint64()
+  external int pending;
+
+  @ffi.Uint64()
+  external int complete;
+
+  external ffi.Pointer<wire_cst_list_prim_u_64_strict> latest_completed;
+}
+
+final class wire_cst_storage_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int piece_count;
+
+  @ffi.Uint32()
+  external int piece_len;
+
+  @ffi.Uint32()
+  external int last_piece_len;
+
+  @ffi.Uint64()
+  external int download_len;
+
+  @ffi.UintPtr()
+  external int download_dir;
+
+  external ffi.Pointer<wire_cst_list_file_info> files;
+}
+
+final class wire_cst_torrent extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> name;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> info_hash;
+
+  @ffi.Uint32()
+  external int piece_len;
+
+  @ffi.Uint64()
+  external int download_len;
+
+  external wire_cst_storage_info storage;
+
+  @ffi.Int64()
+  external int run_duration;
+
+  external wire_cst_piece_stats pieces;
+
+  external wire_cst_peers peers;
+
+  external ffi.Pointer<wire_cst_list_file_stats> files;
+
+  external wire_cst_channel_history protocol;
+
+  external wire_cst_channel_history payload;
+
+  @ffi.Uint64()
+  external int wasted_payload_count;
 }

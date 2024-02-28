@@ -1,38 +1,41 @@
 pub mod app;
 pub mod unit;
-use std::{net::SocketAddr, path::PathBuf};
+use std::{
+  net::SocketAddr,
+  path::PathBuf,
+  sync::{Arc, RwLock, RwLockReadGuard},
+};
 
 use bt_rust::prelude::*;
 use flexi_logger::FileSpec;
+use flutter_rust_bridge::DartFnFuture;
 
 use self::app::{App, Torrent};
 
-pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+// pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+use anyhow::Result;
 
 #[derive(Debug)]
 pub struct DownloadArgs {
   /// Whether to 'seed' or 'download' the torrent.
-  mode: Mode,
+  pub mode: Mode,
 
   /// The path of the folder where to download file.
-  download_dir: PathBuf,
+  pub download_dir: PathBuf,
 
   /// The path to the torrent metainfo file.
-  metainfo: PathBuf,
+  pub metainfo: PathBuf,
 
   /// A comma separated list of <ip>:<port> pairs of the seeds.
-  seeds: Option<Vec<SocketAddr>>,
+  pub seeds: Option<Vec<SocketAddr>>,
 
   /// The socket address on which to listen for new connections.
-  listen: Option<SocketAddr>,
+  pub listen: Option<SocketAddr>,
 
-  quit_after_complete: bool,
+  pub quit_after_complete: bool,
 }
 
-pub async fn start_up(
-  mut args: DownloadArgs,
-  tick_callback: Box<dyn Fn(&Torrent)>,
-) -> Result<()> {
+pub async fn start_up(mut args: DownloadArgs) -> Result<()> {
   flexi_logger::Logger::try_with_str("info")?
     // .log_to_stdout()
     .log_to_file(FileSpec::default().directory("./log"))
@@ -53,10 +56,6 @@ pub async fn start_up(
   // torrents at the same time.
   app.create_torrent(args)?;
 
-  if let Some(torrent) = app.torrents.values().next() {
-    tick_callback(torrent);
-  }
-
   // wait for stdin input and alerts form the engine.
   let mut run = true;
   while run {
@@ -75,10 +74,6 @@ pub async fn start_up(
                 _ => (),
             }
         }
-    }
-
-    if let Some(torrent) = app.torrents.values().next() {
-      tick_callback(torrent);
     }
 
     // we want to draw once more before breaking out of the loop as
