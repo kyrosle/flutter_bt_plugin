@@ -8,4 +8,10 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
+# bt-rust = { path = "/Users/kyros/WorkStation/bt-project/bt-rust" }
+bt-rust = { git = "https://github.com/kyrosle/bt-rust.git" }
+tokio = { version = "1.36.0", features = ["full"] }
+flexi_logger = "0.27.3"
+hex = "0.4.3"
 flutter_rust_bridge = "=2.0.0-dev.25"
+once_cell = "1.19.0"
